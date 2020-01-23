@@ -68,9 +68,13 @@ public class _06_IPodShuffle implements MouseListener{
 			x = gen.nextInt(soli.size());
 			so = soli.get(x);
 			so.play();
+			System.out.println(x);
+		}
+		else if(e.getSource().equals(b2)) {
+			so.stop();
+			System.out.println("stop");
 		}
 	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
