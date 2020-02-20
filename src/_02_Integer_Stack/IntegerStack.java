@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class IntegerStack {
 	//1. create a private array of integers
-	private int[] num = new int[0];
+	private int[] num;
 	
 	//2. complete the constructor by initializing the member array
 	//   to a new array of length 0. This prevents null pointer exceptions.
 
 	public IntegerStack() {
+		num = new int[0];
 	}
 	
 	//3. Complete the steps in the push method.
@@ -19,9 +20,8 @@ public class IntegerStack {
 		//B. set the last element of the new array equal to the integer passed into the method
 		ber[ber.length-1] = v;
 		//C. iterate through the member array and copy all the elements into the new array
-		System.out.println(ber);
-		for(int n : num) {
-			ber[n] = num[n];
+		for(int i=0;i<num.length;i++) {
+			ber[i] = num[i];
 		}
 		//D. set the member array equal to the new array.
 		num = ber;
@@ -36,8 +36,8 @@ public class IntegerStack {
 		int[] bre = new int[num.length-1];
 		//C. iterate through the new array and copy every element from the
 		//   member array to the new array
-		for(int b : bre) {
-			bre[b] = num[b];
+		for(int i=0;i<bre.length;i++) {
+			bre[i] = num[i];
 		}
 		//D. set the member array equal to the new array
 		num = bre;
