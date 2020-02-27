@@ -13,7 +13,7 @@ public class _01_IntroToStack {
 		//2. Use a loop to push 100 random doubles between 0 and 100 to the Stack.
 		Random gen = new Random();
 		double x;
-		for(int i=0;i<100;i++) {
+		for(int i=0;i<200;i++) {
 			x = Math.random()*101;
 			doub.push(x);
 		}
