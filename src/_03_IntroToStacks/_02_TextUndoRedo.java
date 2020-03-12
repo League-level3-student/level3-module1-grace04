@@ -3,6 +3,7 @@ package _03_IntroToStacks;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +27,7 @@ public class _02_TextUndoRedo implements KeyListener {
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel();
 	String lab = "";
+	Stack<Character> deleted = new Stack<Character>();
 	
 	public static void main(String[] args) {
 		_02_TextUndoRedo tur = new _02_TextUndoRedo();
@@ -56,8 +58,10 @@ public class _02_TextUndoRedo implements KeyListener {
 		label.setText(label.getText()+lab);
 		frame.pack();
 		if(kc==8) {
-			label.setText(label.getText());
+			deleted.push(label.getText().substring(label.getText().length()-1));
+			label.setText(label.getText().substring(0, label.getText().length()-2));
 		}
+
 	}
 
 	@Override
