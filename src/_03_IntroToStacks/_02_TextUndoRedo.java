@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class _02_TextUndoRedo implements KeyListener, ActionListener {
+public class _02_TextUndoRedo implements KeyListener {
 	/* 
 	 * Create a JFrame with a JPanel and a JLabel.
 	 * 
@@ -31,9 +31,9 @@ public class _02_TextUndoRedo implements KeyListener, ActionListener {
 	JLabel label = new JLabel();
 	JButton but = new JButton();
 	String lab = "";
-	char last;
-	char undo;
-	Stack<Character> deleted = new Stack<Character>();
+	String last;
+	String undid;
+	Stack<String> deleted = new Stack<String>();
 	
 	public static void main(String[] args) {
 		_02_TextUndoRedo tur = new _02_TextUndoRedo();
@@ -42,11 +42,7 @@ public class _02_TextUndoRedo implements KeyListener, ActionListener {
 	
 	public void doStuff() {
 		frame.add(panel);
-		frame.add(label);
-		frame.add(but);
-		but.setSize(10, 5);
-		but.setText("Undo");
-		but.addActionListener(this);
+		panel.add(label);
 		frame.addKeyListener(this);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,29 +62,23 @@ public class _02_TextUndoRedo implements KeyListener, ActionListener {
 		int kc = (int) e.getKeyCode();
 		lab = "" + kp;
 		label.setText(label.getText()+lab);
-		frame.pack();
 		if(kc==8) {
-			last = label.getText().charAt(label.getText().length()-1);
+			last = label.getText().substring(label.getText().length()-1);
 			deleted.push(last);
+			System.out.println(last);
 			System.out.println(deleted);
 			label.setText(label.getText().substring(0, label.getText().length()-2));
 		}
-
+		if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+			undid = deleted.pop();
+			System.out.println(undid);
+			label.setText(label.getText()+undid);
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		JButton buttonPressed = (JButton) e.getSource();
-		if(buttonPressed.equals(but)) {
-			undo = deleted.pop();
-			label.setText(label.getText()+undo);
-		}
 	}
 }
