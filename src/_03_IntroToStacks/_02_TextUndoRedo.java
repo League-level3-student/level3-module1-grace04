@@ -46,7 +46,7 @@ public class _02_TextUndoRedo implements KeyListener {
 		frame.addKeyListener(this);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(200,100);
+		frame.pack();
 	}
 
 	@Override
@@ -62,17 +62,25 @@ public class _02_TextUndoRedo implements KeyListener {
 		int kc = (int) e.getKeyCode();
 		lab = "" + kp;
 		label.setText(label.getText()+lab);
+		frame.pack();
 		if(kc==8) {
-			last = label.getText().substring(label.getText().length()-1);
-			deleted.push(last);
-			System.out.println(last);
-			System.out.println(deleted);
+			//last = label.getText().substring(label.getText().length()-1);
+			//System.out.println(last);
+			//System.out.println(deleted);
+			last = label.getText().substring(0, label.getText().length());
 			label.setText(label.getText().substring(0, label.getText().length()-2));
+			deleted.push(last);
+			System.out.println("Last: " + last);
+			frame.pack();
 		}
 		if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+			for(int i=0;i<deleted.size();i++) {
+				System.out.println(deleted.get(i));
+			}
 			undid = deleted.pop();
-			System.out.println(undid);
+			//System.out.println(undid);
 			label.setText(label.getText()+undid);
+			frame.pack();
 		}
 	}
 
