@@ -29,10 +29,9 @@ public class _02_TextUndoRedo implements KeyListener {
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel();
-	JButton but = new JButton();
-	String lab = "";
+	String lab;
 	String last;
-	String undid;
+	Stack<String> typed = new Stack<String>();
 	Stack<String> deleted = new Stack<String>();
 	
 	public static void main(String[] args) {
@@ -58,30 +57,25 @@ public class _02_TextUndoRedo implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		char kp = (char) e.getKeyChar();
-		int kc = (int) e.getKeyCode();
-		lab = "" + kp;
-		label.setText(label.getText()+lab);
-		frame.pack();
-		if(kc==8) {
-			//last = label.getText().substring(label.getText().length()-1);
-			//System.out.println(last);
-			//System.out.println(deleted);
-			last = label.getText().substring(0, label.getText().length());
-			label.setText(label.getText().substring(0, label.getText().length()-2));
+		lab = "";
+		if (e.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
+			last = typed.pop();
 			deleted.push(last);
-			System.out.println("Last: " + last);
-			frame.pack();
 		}
-		if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-			for(int i=0;i<deleted.size();i++) {
-				System.out.println(deleted.get(i));
-			}
-			undid = deleted.pop();
-			//System.out.println(undid);
-			label.setText(label.getText()+undid);
-			frame.pack();
+		else if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+			last = deleted.pop();
+			typed.push(last);
+			last = "";
 		}
+		else {
+			typed.push(""+e.getKeyChar());
+			System.out.println(e.getKeyChar());
+		}
+		for (String s:typed) {
+			lab += s;
+		}
+		label.setText(lab);
+		frame.pack();
 	}
 
 	@Override
