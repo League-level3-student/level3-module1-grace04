@@ -11,9 +11,10 @@ public class HangMan{
 	int words;
 	String ans;
 	Stack<String> playWords = new Stack<String>();
+	Utilities uti = new Utilities();	
 	
 	public static void main(String[] args) {
-		
+
 	}
 	
 	public void run() {
@@ -30,6 +31,11 @@ public class HangMan{
 	public void doStuff() {
 		ans = JOptionPane.showInputDialog("How many words?");
 		words = Integer.parseInt(ans);
-		playWords.push(readRandomLineFromFile("dictionary.txt"))
+		int i = 0;
+		while(i<words) {
+			playWords.push(uti.readRandomLineFromFile("dictionary.txt"));
+			i++;
+		}
+		
 	}
 }
