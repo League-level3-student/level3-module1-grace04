@@ -1,7 +1,15 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
-public class _02_LogSearch {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class _02_LogSearch implements ActionListener {
   /* 
 	 * Crate a HashMap of Integers for the keys and Strings for the values.
 	 * Create a GUI with three buttons. 
@@ -30,4 +38,60 @@ public class _02_LogSearch {
 	 *
 	 * */
 	
+	HashMap<Integer, String> hm = new HashMap<Integer, String>();
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	JButton add = new JButton();
+	JButton search = new JButton();
+	JButton view = new JButton();
+	
+	public static void main(String[] args) {
+		_02_LogSearch ls = new _02_LogSearch();
+		ls.run();
+	}
+	
+	void run(){
+		add.addActionListener(this);
+		add.setText("Add Entry");
+		search.addActionListener(this);
+		search.setText("Search by ID");
+		view.addActionListener(this);
+		view.setText("View List");
+		frame.add(panel);
+		panel.add(add);
+		panel.add(search);
+		panel.add(view);
+		frame.setVisible(true);
+		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JButton buttonPressed = (JButton) e.getSource();
+		if(buttonPressed.equals(add)) {
+			String ans = JOptionPane.showInputDialog("Enter ID number");
+			int id = Integer.parseInt(ans);
+			String name = JOptionPane.showInputDialog("Enter name");
+			hm.put(id, name);
+		}
+		if(buttonPressed.equals(search)) {
+			String ans = JOptionPane.showInputDialog("Enter ID number");
+			int x = Integer.parseInt(ans);
+			if(hm.containsKey(x)) {
+				 JOptionPane.showMessageDialog(null, "The value of the entry is " + hm.get(x));
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "The entry does not exist");
+			}
+		}
+		if(buttonPressed.equals(view)) {
+			String list = "";
+			for(int key : hm.keySet()) {
+				list += "\nID: " + key + "   Name: " + hm.get(key);
+			}
+			JOptionPane.showMessageDialog(null, list);
+		}
+	}
 }
